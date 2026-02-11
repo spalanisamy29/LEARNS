@@ -15,6 +15,19 @@ namespace LEARNS.Controllers
             return new string[] { "value12", "value22" };
         }
 
+        // GET api/<ValuesController>/concatenate?value1=hello&value2=world
+        [HttpGet("concatenate")]
+        public IActionResult Concatenate(string value1, string value2)
+        {
+            if (string.IsNullOrEmpty(value1) || string.IsNullOrEmpty(value2))
+            {
+                return BadRequest(new { error = "Both value1 and value2 parameters are required" });
+            }
+
+            var result = value1 + value2;
+            return Ok(new { value1, value2, concatenated = result });
+        }
+
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
         public string Get(int id)
